@@ -1,0 +1,21 @@
+{
+  "name": "@j.u.p.iter/find-path-to-file",
+  "version": "0.0.1",
+  "main": "dist/lib/index.js",
+  "typings": "dist/types",
+  "description": "Finds closest path to file, searching, starting from a current dir and moving to the top",
+  "repository": "git@github.com:j-u-p-iter/find-path-to-file.git",
+  "author": "Leontyev Kirill (j.u.p.iter) <pn79122821224@gmail.com> (http://j-u-p-iter.ru/)",
+  "license": "MIT",
+  "scripts": {
+    "commit": "jupiter-scripts precommit --allowJs",
+    "build": "jupiter-scripts build --module=CommonJS",
+    "start": "yarn run build --watch",
+    "lint": "jupiter-scripts lint --format codeFrame",
+    "lint:fix": "yarn run lint --fix",
+    "test": "jupiter-scripts test"
+  },
+  "devDependencies": {
+    "@j.u.p.iter/jupiter-scripts": "^1.17.0"
+  }
+}

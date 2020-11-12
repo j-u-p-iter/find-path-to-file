@@ -2,24 +2,25 @@ import path from 'path';
 import fs from 'fs';
 
 
-type FindPathToFile = (fileName: string; options: { cwd?: string }) => Promise<string | Error>
-export const findPathToFile: FindPathToFile = async (fileName = '', options) => {
-  let pathToFile = path.resolve(options.cwd || '', fileName);
+type FindPathToFile = (fileName: string, options?: { cwd?: string }) => Promise<{ filePath: string; dirPath: string; } | Error>
+export const findPathToFile: FindPathToFile = async (fileName, options = {}) => {
+  const initialDirectoryPath = options.cwd || '';
+
+  let pathToFile = path.resolve(initialDirectoryPath, fileName);
 
   while(true) {
-    const fileStat = await fs.promises.lstat(pathToFile); 
-
-    if (fileStat.isFile()) {
-      return pathToFile;
+    if (fs.existsSync(pathToFile)) {
+      return {
+        filePath: pathToFile,
+        dirPath: path.dirname(pathToFile),
+      };
     }
 
     const pathToDir = path.dirname(pathToFile);
-    const dirStat = await fs.promises.lstat(pathToDir);
-
-    if (!dirStat.isDirectory()) {
+    if (pathToDir === '/') {
       return Promise.reject(new Error('There is no such file.'))
     }
 
-    pathToFile = path.resolve('..', pathToFile);
-  }  
+    pathToFile = path.resolve(pathToFile, '../..', fileName);
+  } 
 }

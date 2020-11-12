@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-type FindPathToFile = (
+export type FindPathToFile = (
   fileName: string,
   options?: { cwd?: string }
 ) => Promise<{ filePath: string; dirPath: string } | Error>;

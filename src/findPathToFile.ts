@@ -4,7 +4,7 @@ import path from "path";
 export type FindPathToFile = (
   fileName: string,
   options?: { cwd?: string }
-) => Promise<{ filePath: string; dirPath: string } | Error>;
+) => Promise<{ filePath: string; dirPath: string }>;
 export const findPathToFile: FindPathToFile = async (
   fileName,
   options = {}
